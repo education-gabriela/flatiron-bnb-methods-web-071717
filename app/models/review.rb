@@ -10,8 +10,6 @@ class Review < ActiveRecord::Base
   end
 
   def checkout_happened?
-    if self.reservation && self.reservation.checkout >= Date.today
-      self.errors.add :guest_id, "not enough time to do a review"
-    end
+    self.errors.add :guest_id, "review must be made after checkout" if self.reservation && self.reservation.checkout >= Date.today
   end
 end
