@@ -8,8 +8,12 @@ module Availability
   end
 
   module ClassMethods
-    def highest_ratio_res_to_listings
-      
+    def most_reservations(field)
+      joins(:listings => :reservations).group(field).order("count(*) desc").limit(1).first
+    end
+
+    def highest_ratio(field)
+      joins(:listings => :reservations).group(field).order("count(listings.id)/count(reservations.id) DESC").limit(1).first
     end
   end
 end
