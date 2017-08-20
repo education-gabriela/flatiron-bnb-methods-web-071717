@@ -13,7 +13,7 @@ module Availability
     end
 
     def highest_ratio(field)
-      joins(:listings => :reservations).group(field).order("count(listings.id)/count(reservations.id) DESC").limit(1).first
+      joins(:listings => :reservations).group(field).order("count(distinct reservations.id)/count(distinct listings.id) DESC").limit(1).first
     end
   end
 end

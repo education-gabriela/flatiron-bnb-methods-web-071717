@@ -27,6 +27,13 @@ class Reservation < ActiveRecord::Base
         self.errors.add :guest_id, "the chosen dates aren't available"
       end
     end
+  end
 
+  def duration
+    (self.checkout - self.checkin).to_i
+  end
+
+  def total_price
+    self.listing.price * self.duration
   end
 end
