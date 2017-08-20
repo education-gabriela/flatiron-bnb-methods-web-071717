@@ -24,4 +24,10 @@ class Listing < ActiveRecord::Base
     end
   end
 
+  def available(start_date, end_date)
+    interval = start_date..end_date
+    reservations = self.reservations.where(checkin: interval) | self.reservations.where(checkout: interval)
+    reservations.empty?
+  end
+
 end
